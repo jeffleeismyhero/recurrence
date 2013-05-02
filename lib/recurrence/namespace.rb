@@ -251,6 +251,7 @@ module SimplesIdeias
           break if stop_until || stop_repeat || stop_through
         end
       end
+      @events = @events[-365..-1] if @events.length > 365
     end
 
     # Works like SimplesIdeias::Recurrence::Namespace#events, but removes the cache first.
