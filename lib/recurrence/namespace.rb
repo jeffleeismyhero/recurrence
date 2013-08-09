@@ -251,7 +251,17 @@ module SimplesIdeias
           break if stop_until || stop_repeat || stop_through
         end
       end
-      @events = @events[-365..-1] if @events.length > 365
+
+      if @events.length > 365
+        if current_index = @events.index(Time.zone.today)
+          @events[current_index..365]
+        elsif @events[0] > Time.zone.today
+          @events = @events[0..365]
+        else
+          @events = @events[-365..-1]
+        end
+      end
+      @events
     end
 
     # Works like SimplesIdeias::Recurrence::Namespace#events, but removes the cache first.
